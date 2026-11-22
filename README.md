@@ -49,32 +49,6 @@ Aplikasi pemutar musik modern bergaya **Spotify**, **100% bebas iklan**, super r
 11. **Dukungan MediaSession (Lockscreen HP & Tombol Headset)**:
     - Judul lagu, musisi, dan cover album tampil di layar kunci HP dan panel volume Windows.
     - Kontrol Play, Pause, Next, Prev langsung dari tombol earphone/headset Bluetooth.
-
----
-
-## 🚀 Cara Menjalankan Aplikasi
-
-### Cara 1: Menggunakan File Batch (1-Klik di Windows)
-Cukup klik ganda file **`start.bat`** di dalam folder `C:\Users\arknm\.gemini\antigravity\scratch\spotifree`.
-Browser Anda akan otomatis terbuka ke `http://localhost:3000`.
-
-### Cara 2: Melalui Terminal / PowerShell
-```powershell
-cd C:\Users\arknm\.gemini\antigravity\scratch\spotifree
-npm start
-```
-
----
-
-## 📱 Cara Membuka di HP (Smartphone)
-
-1. Pastikan HP dan PC Anda terhubung ke jaringan Wi-Fi yang sama.
-2. Buka aplikasi di PC (`http://localhost:3000`).
-3. Klik tombol **"Buka di HP (QR Code)"** di PC.
-4. Buka kamera di HP Anda dan arahkan ke layar PC untuk memindai QR code tersebut.
-5. Tap link yang muncul (contoh: `http://192.168.1.61:3000`).
-6. *(Opsional)* Di browser HP (Chrome atau Safari), tekan menu titik tiga / tombol bagikan lalu pilih **"Tambahkan ke Layar Utama" (Add to Home Screen)** agar menjadi aplikasi Spotify mandiri di HP Anda!
-
 ---
 
 ## ⌨️ Shortcut Keyboard (Khusus PC)
