@@ -1,0 +1,22 @@
+{
+  "name": "Aura Music Server",
+  "image": "mcr.microsoft.com/devcontainers/node:20",
+  "postCreateCommand": "npm install",
+  "postStartCommand": "npm start > /tmp/aura-server.log 2>&1 &",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Aura Music App",
+      "onAutoForward": "notify",
+      "visibility": "public"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": []
+    }
+  }
+}
