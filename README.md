@@ -1,4 +1,14 @@
-# 🎵 Spotifree (Aura Music) — Spotify Bebas Iklan untuk HP & PC
+---
+title: Aura Music Player
+emoji: 🎵
+colorFrom: gray
+colorTo: black
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
+# 🎵 Aura Music Player — Ad-Free High Fidelity Music for Mobile & PC
 
 Aplikasi pemutar musik modern bergaya **Spotify**, **100% bebas iklan**, super ringan, dan tidak membuat HP atau PC lag. Mendukung **Dual Search Engine**: **YouTube Music** (lagu & album resmi) serta **YouTube Standard** (video, cover, live, & remix).
 
