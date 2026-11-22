@@ -294,17 +294,22 @@ class AudioPlayer {
       console.warn('Audio playback stream error:', e);
       if (!this.streamRetryCount) this.streamRetryCount = 0;
 
-      // Resilience: 1 automatic retry or engine fallback
+      // Retry 0: Try Invidious fallback (works on cloud/Vercel - browser calls Invidious directly)
       if (this.streamRetryCount === 0 && this.currentSong) {
         this.streamRetryCount++;
-        console.log('Retrying stream with failover engine...');
+        console.log('Stream failed, trying Invidious fallback...');
+        if (window.ui) window.ui.showToast('Memuat ulang audio...', 'info');
+        this.tryInvidiousFallback(this.currentSong.id);
+        return;
+      }
+
+      // Retry 1: Switch engine and replay via server
+      if (this.streamRetryCount === 1 && this.currentSong) {
+        this.streamRetryCount++;
+        console.log('Invidious failed, retrying with server...');
         const altEngine = this.currentEngine === 'youtube' ? 'youtube_music' : 'youtube';
         this.currentEngine = altEngine;
-        this.saveSettings();
-        if (window.ui) {
-          window.ui.showToast(`Koneksi audio dipulihkan via ${altEngine === 'youtube_music' ? 'YT Music' : 'YouTube'}...`, 'info');
-        }
-        setTimeout(() => this.playSong(this.currentSong, this.currentQueueIndex), 600);
+        setTimeout(() => this.playSong(this.currentSong, this.currentQueueIndex), 800);
         return;
       }
 
@@ -1233,6 +1238,55 @@ class AudioPlayer {
       const names = { wave: 'Mode Gelombang', bars: 'Mode Spektrum Bar', quantum: 'Mode Kuantum' };
       window.ui.showToast(`Visualizer: ${names[this.scVisMode]}`);
     }
+  }
+
+  // --- Invidious Client-Side Fallback (works even when server/Vercel is blocked by YouTube) ---
+  async tryInvidiousFallback(videoId) {
+    // Public Invidious instances with CORS enabled - browser calls these directly
+    const instances = [
+      'https://inv.nadeko.net',
+      'https://yt.cdaut.de',
+      'https://invidious.nerdvpn.de',
+      'https://invidious.privacydev.net',
+      'https://invidious.slipfox.xyz',
+      'https://i.iii.ryona.agency',
+      'https://invidious.incogniweb.net',
+    ];
+
+    for (const instance of instances) {
+      try {
+        console.log(`Trying Invidious: ${instance}`);
+        const res = await fetch(
+          `${instance}/api/v1/videos/${videoId}?fields=adaptiveFormats,videoId`,
+          { signal: AbortSignal.timeout(6000) }
+        );
+        if (!res.ok) continue;
+
+        const data = await res.json();
+        const formats = data.adaptiveFormats || [];
+
+        // Prefer m4a/AAC audio (most compatible with all mobile browsers)
+        const audioUrl =
+          formats.find(f => f.type?.startsWith('audio/mp4'))?.url ||
+          formats.find(f => f.type?.startsWith('audio/webm'))?.url ||
+          formats.find(f => f.audioSampleRate)?.url;
+
+        if (audioUrl) {
+          console.log(`Invidious stream found via ${instance}`);
+          this.streamRetryCount = 0;
+          this.audio.src = audioUrl;
+          this.audio.load();
+          try { await this.audio.play(); } catch(err) { console.warn(err); }
+          return;
+        }
+      } catch (err) {
+        console.warn(`Invidious ${instance} failed:`, err.message);
+      }
+    }
+
+    // All Invidious instances failed - give up
+    console.warn('All Invidious instances failed for', videoId);
+    if (window.ui) window.ui.showToast('Gagal memutar audio. Coba lagu lain.', 'error');
   }
 
   // --- Helper ---
