@@ -407,17 +407,41 @@ class UIManager {
       });
     }
 
-    // Touch swipe down on fullscreen player to dismiss smoothly
+    // Touch swipe down on fullscreen player: only trigger from header or when at top
     if (fsModal) {
       let touchStartY = 0;
+      let startFromHeader = false;
       fsModal.addEventListener('touchstart', (e) => {
         touchStartY = e.touches[0].clientY;
+        startFromHeader = touchStartY < 120 || fsModal.scrollTop <= 0;
       }, { passive: true });
 
       fsModal.addEventListener('touchmove', (e) => {
+        if (!startFromHeader || fsModal.scrollTop > 5) return;
         const deltaY = e.touches[0].clientY - touchStartY;
-        if (deltaY > 80) {
+        if (deltaY > 90) {
           fsModal.classList.remove('open');
+          startFromHeader = false;
+        }
+      }, { passive: true });
+    }
+
+    // Touch swipe down to dismiss mobile drawer bottom sheet
+    const drawer = document.getElementById('right-drawer');
+    if (drawer) {
+      let drawerTouchStartY = 0;
+      let canDismissDrawer = false;
+      drawer.addEventListener('touchstart', (e) => {
+        drawerTouchStartY = e.touches[0].clientY;
+        canDismissDrawer = drawerTouchStartY < 100 || drawer.scrollTop <= 0;
+      }, { passive: true });
+
+      drawer.addEventListener('touchmove', (e) => {
+        if (!canDismissDrawer || drawer.scrollTop > 5) return;
+        const deltaY = e.touches[0].clientY - drawerTouchStartY;
+        if (deltaY > 90) {
+          document.getElementById('app')?.classList.remove('drawer-open');
+          canDismissDrawer = false;
         }
       }, { passive: true });
     }

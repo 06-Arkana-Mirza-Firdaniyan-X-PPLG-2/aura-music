@@ -141,25 +141,45 @@
 
   .right-drawer {
     display: flex;
+    flex-direction: column;
     position: fixed;
     inset: auto 0 0 0;
     width: 100%;
-    height: 84vh;
-    height: 84dvh;
-    background: #0c0c10;
-    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    height: 82vh;
+    height: 82dvh;
+    background: #09090d;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     border-left: none;
-    border-radius: 22px 22px 0 0;
+    border-radius: 24px 24px 0 0;
     z-index: 300;
-    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 -14px 44px rgba(0, 0, 0, 0.95);
     transform: translate3d(0, 100%, 0);
-    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1);
+    transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.2, 1);
     will-change: transform;
     overflow: hidden;
   }
 
   .drawer-drag-handle {
     display: block;
+    width: 38px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 3px;
+    margin: 8px auto 6px auto;
+    flex-shrink: 0;
+  }
+
+  .drawer-header {
+    padding: 0 16px 8px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+  }
+
+  .drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 14px 16px calc(env(safe-area-inset-bottom, 16px) + 20px) 16px;
   }
 
   .spotify-layout.drawer-open .right-drawer {
@@ -171,21 +191,43 @@
     flex: 1;
     margin: 0;
     border-radius: 0;
-    padding-bottom: calc(var(--mobile-mini-height) + var(--mobile-nav-height) + 36px);
+    padding-bottom: calc(var(--mobile-mini-height) + var(--mobile-nav-height) + 40px + env(safe-area-inset-bottom, 0px));
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: contain;
   }
 
   .topbar {
-    height: 56px;
-    padding: 0 12px;
+    height: calc(56px + env(safe-area-inset-top, 0px));
+    padding: calc(env(safe-area-inset-top, 0px) + 6px) 12px 6px 12px;
     gap: 8px;
+    background: rgba(6, 6, 9, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .topbar-nav-buttons,
   #btn-topbar-qr {
     display: none !important;
+  }
+
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-install-pwa {
+    padding: 7px;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+  }
+
+  .btn-install-pwa .btn-install-text {
+    display: none;
   }
 
   .topbar-search {
@@ -198,11 +240,13 @@
     height: 38px;
     font-size: 0.82rem;
     padding: 0 34px 0 36px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.14);
   }
 
   .active-engine-badge {
     padding: 5px 8px;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
   }
 
   .view-content {
@@ -334,26 +378,28 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    bottom: calc(var(--mobile-nav-height) + 6px);
-    left: 8px;
-    right: 8px;
+    bottom: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px) + 8px);
+    left: 10px;
+    right: 10px;
     height: var(--mobile-mini-height);
-    background: rgba(18, 18, 26, 0.95);
+    background: rgba(16, 16, 22, 0.96);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-light);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.75);
     z-index: 95;
     overflow: hidden;
     cursor: pointer;
     touch-action: pan-y;
+    transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.2, 1);
   }
 
   .mini-progress-bar {
     width: 0%;
-    height: 2px;
+    height: 2.5px;
     background: #ffffff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
     transition: width 0.2s linear;
   }
 
@@ -366,12 +412,13 @@
   }
 
   .mini-thumb-wrap {
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-sm);
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
     overflow: hidden;
     background: #181822;
     flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .mini-thumb-wrap img {
@@ -454,10 +501,11 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: var(--mobile-nav-height);
-    background: linear-gradient(180deg, rgba(14, 14, 20, 0.96) 0%, #050508 100%);
-    backdrop-filter: blur(16px);
-    border-top: 1px solid var(--border-color);
+    height: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(180deg, rgba(12, 12, 18, 0.97) 0%, #040407 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 100;
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
