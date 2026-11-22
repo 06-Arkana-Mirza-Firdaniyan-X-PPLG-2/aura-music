@@ -1,0 +1,21 @@
+{
+  "name": "spotifree",
+  "version": "1.0.0",
+  "description": "Ad-free ultra-fast Spotify-like music player for PC and Mobile",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@distube/ytdl-core": "^5.2.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "qrcode": "^1.5.4",
+    "yt-search": "^2.12.1"
+  },
+  "devDependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@napi-rs/canvas": "^1.2.0"
+  }
+}

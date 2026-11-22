@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Aura">
+  <meta name="application-name" content="Aura">
+  <meta name="description" content="Aura - Aplikasi Musik Modern Bebas Iklan untuk HP & PC dengan Dual Engine YouTube & YouTube Music">
+  <title>Aura — Pure Sound Experience</title>
+  
+  <link rel="manifest" href="manifest.json?v=4.6.0">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=4.6.0">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=4.6.0">
+  <link rel="icon" type="image/svg+xml" href="icons/cover-placeholder.svg?v=4.6.0">
+  <link rel="stylesheet" href="css/style.css?v=4.6.0">
+  <link rel="stylesheet" href="css/responsive.css?v=4.6.0">
+</head>
+<body>
+  <div id="app" class="spotify-layout">
+    
+    <!-- ==================== DESKTOP SIDEBAR ==================== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <svg class="brand-icon" viewBox="0 0 100 100" width="34" height="34">
+            <rect width="100" height="100" rx="26" fill="#141418" stroke="rgba(255, 255, 255, 0.16)" stroke-width="2"/>
+            <rect x="20" y="42" width="7" height="16" rx="3.5" fill="#ffffff"/>
+            <rect x="33" y="28" width="7" height="44" rx="3.5" fill="#ffffff"/>
+            <rect x="46" y="20" width="7" height="60" rx="3.5" fill="#ffffff"/>
+            <rect x="59" y="31" width="7" height="38" rx="3.5" fill="#ffffff"/>
+            <rect x="72" y="43" width="7" height="14" rx="3.5" fill="#ffffff"/>
+          </svg>
+          <span class="brand-name">Aura</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="nav-item active" data-view="home">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>Home</span>
+          </li>
+          <li class="nav-item" data-view="search">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <span>Cari</span>
+          </li>
+          <li class="nav-item" data-view="explore">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            <span>Trending</span>
+          </li>
+          <li class="nav-item" data-view="library">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+            <span>Koleksi Lagu</span>
+          </li>
+          <li class="nav-item" data-view="liked">
+            <svg class="icon filled-accent" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span>Lagu Disukai</span>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Engine Selector Box -->
+      <div class="sidebar-engine-box">
+        <div class="engine-title">
+          <span>Search Engine:</span>
+        </div>
+        <div class="engine-toggle-group">
+          <button class="engine-btn active" data-engine="ytmusic" title="YouTube Music (Official Releases & Album Tracks)">
+            <span class="engine-indicator"></span>
+            YT Music
+          </button>
+          <button class="engine-btn" data-engine="youtube" title="YouTube Standard (Covers, Live & Remixes)">
+            <span class="engine-indicator"></span>
+            YouTube
+          </button>
+        </div>
+      </div>
+
+      <!-- Playlists Section -->
+      <div class="sidebar-playlists">
+        <div class="playlists-header">
+          <span>PLAYLIST SAYA</span>
+          <button class="btn-icon" id="btn-create-playlist" title="Buat Playlist">
+            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          </button>
+        </div>
+        <ul class="playlist-list" id="sidebar-playlist-items">
+          <!-- Dynamically populated from LocalStorage -->
+        </ul>
+      </div>
+
+      <!-- Device Mobile Connect Badge -->
+      <div class="sidebar-footer">
+        <button class="mobile-connect-pill" id="btn-mobile-connect">
+          <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+          <span>Buka di HP (QR Code)</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+    <main class="main-container" id="main-container">
+      
+      <!-- Top Sticky Bar -->
+      <header class="topbar" id="topbar">
+        <div class="topbar-nav-buttons">
+          <button class="btn-round" id="btn-nav-back" title="Kembali">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          <button class="btn-round" id="btn-nav-forward" title="Maju">
+            <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+          </button>
+        </div>
+
+        <!-- Global Search Input in Header -->
+        <div class="topbar-search" id="topbar-search-container">
+          <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="global-search-input" placeholder="Mau dengar lagu, artis, atau genre apa?" autocomplete="off">
+          <button class="search-clear-btn" id="search-clear-btn" style="display:none;" title="Hapus"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+        </div>
+
+        <div class="topbar-actions">
+          <!-- Install PWA App Button -->
+          <button class="btn-install-pwa" id="btn-topbar-install" title="Pasang Aplikasi Aura di HP / PC">
+            <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+            <span class="btn-install-text">Pasang App</span>
+          </button>
+
+          <!-- Active Engine Indicator badge -->
+          <div class="active-engine-badge" id="active-engine-badge" title="Klik untuk ganti engine">
+            <span class="badge-dot"></span>
+            <span class="badge-text">YT Music</span>
+          </div>
+
+          <!-- Mobile Connect Header Button -->
+          <button class="btn-circle" id="btn-topbar-qr" title="Sambungkan ke HP">
+            <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+          </button>
+
+          <!-- Visualizer Toggle -->
+          <button class="btn-circle" id="btn-topbar-visualizer" title="Mode Audio Spectrum">
+            <svg viewBox="0 0 24 24"><path d="M4 18h2V6H4v12zm5 0h2V2H9v16zm5 0h2v-8h-2v8zm5 0h2v-4h-2v4z"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- VIEW: HOME -->
+      <section class="view-content active" id="view-home">
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+          <div class="hero-text">
+            <span class="hero-tag">HI-RES AUDIO STREAMING</span>
+            <h1 class="hero-title">Bebas Iklan, Super Cepat & Ringan</h1>
+            <p class="hero-desc">Didukung mesin pencarian YouTube Music & YouTube Standard. Putar jutaan lagu favoritmu tanpa jeda iklan di HP dan PC.</p>
+            <div class="hero-actions">
+              <button class="btn-play-primary" id="btn-hero-play-popular">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <span>Putar Top Hits</span>
+              </button>
+              <button class="btn-secondary" id="btn-hero-explore">Jelajahi Genre</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Genre Pills -->
+        <div class="chips-container">
+          <button class="chip active" data-query="top hits indonesia 2024">Semua</button>
+          <button class="chip" data-query="lagu pop indonesia terbaru">Pop Indonesia</button>
+          <button class="chip" data-query="indie pop indonesia viral">Indie</button>
+          <button class="chip" data-query="billboard hot 100 global hits">Global 100</button>
+          <button class="chip" data-query="lofi hip hop chill beats">Lofi Chill</button>
+          <button class="chip" data-query="rock classics hits">Rock</button>
+          <button class="chip" data-query="kpop viral 2024">K-Pop</button>
+          <button class="chip" data-query="lagu akustik santai">Akustik</button>
+        </div>
+
+        <!-- Dynamic Trending Shelves -->
+        <div class="shelves-container" id="home-shelves-container">
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+            <span>Memuat lagu trending terbaru...</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: SEARCH -->
+      <section class="view-content" id="view-search">
+        <div class="search-view-header">
+          <h2 class="section-title">Hasil Pencarian</h2>
+          <div class="search-engine-pill-group">
+            <button class="engine-tab active" data-engine="ytmusic">YouTube Music</button>
+            <button class="engine-tab" data-engine="youtube">YouTube Video/Covers</button>
+          </div>
+        </div>
+
+        <div class="search-state-box" id="search-initial-state">
+          <svg viewBox="0 0 24 24" class="state-icon"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          <h3>Cari lagu, musisi, atau genre kesukaanmu</h3>
+          <p>Ketik judul di kolom atas untuk mulai mendengarkan secara instan.</p>
+        </div>
+
+        <div class="search-loading" id="search-loading" style="display:none;">
+          <div class="spinner"></div>
+          <span>Mencari di mesin musik...</span>
+        </div>
+
+        <div class="tracklist-container" id="search-results-list" style="display:none;">
+          <!-- Dynamically filled with track rows -->
+        </div>
+      </section>
+
+      <!-- VIEW: EXPLORE / TRENDING -->
+      <section class="view-content" id="view-explore">
+        <h2 class="section-title">Trending & Kategori Populer</h2>
+        <div class="genre-grid">
+          <div class="genre-card" style="--card-bg: linear-gradient(135deg, #e91429, #74000b);" data-query="top 50 indonesia viral">
+            <h3>Top 50 Indonesia</h3>
+          </div>
+          <div class="genre-card" style="--card-bg: linear-gradient(135deg, #1e3264, #0b1736);" data-query="top hits global 2024">
+            <h3>Top Global Hits</h3>
+          </div>
+          <div class="genre-card" style="--card-bg: linear-gradient(135deg, #8d67ab, #482c5f);" data-query="lagu galau indonesia playlist">
+            <h3>Lagu Galau & Sad</h3>
+          </div>
+          <div class="genre-card" style="--card-bg: linear-gradient(135deg, #e8115b, #7d002a);" data-query="indie indonesia terbaik">
+            <h3>Indie Indonesia</h3>
+          </div>
+          <div class="genre-card" style="--card-bg: linear-gradient(135deg, #0284c7, #0c4a6e);" data-query="lofi study work relax">
+            <h3>Fokus & Lofi</h3>
+          </div>
+          <div class="genre-card" style="--card-bg: linear-gradient(135deg, #ba5d07, #5c2c00);" data-query="lagu nostalgia 90an 2000an indonesia">
+            <h3>Nostalgia 90s-2000s</h3>
+          </div>
+          <div class="genre-card" style="--card-bg: linear-gradient(135deg, #d84000, #661e00);" data-query="rock indonesia terbaik">
+            <h3>Rock Legend</h3>
+          </div>
+          <div class="genre-card" style="--card-bg: linear-gradient(135deg, #503750, #201320);" data-query="jazz cafe chill relaxing">
+            <h3>Jazz Cafe</h3>
+          </div>
+        </div>
+
+        <div class="category-results-section" id="category-results-section" style="margin-top: 32px; display:none;">
+          <h3 class="shelf-title" id="category-results-title">Daftar Lagu Kategori</h3>
+          <div class="tracklist-container" id="category-tracklist"></div>
+        </div>
+      </section>
+
+      <!-- VIEW: LIBRARY -->
+      <section class="view-content" id="view-library">
+        <div class="library-header">
+          <div>
+            <h2 class="section-title">Koleksi Musik Anda</h2>
+            <p class="section-subtitle">Playlist kustom, lagu disukai, dan riwayat yang tersimpan di perangkat Anda.</p>
+          </div>
+          <div class="library-actions">
+            <button class="btn-secondary" id="btn-library-new-playlist">
+              <svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align: -2px; margin-right: 4px; fill: currentColor;"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              <span>Playlist Baru</span>
+            </button>
+            <button class="btn-secondary" id="btn-export-library" title="Ekspor Cadangan Playlist ke File">Ekspor</button>
+            <button class="btn-secondary" id="btn-import-library" title="Impor Playlist dari File">Impor</button>
+            <input type="file" id="file-import-input" accept=".json" style="display:none;">
+          </div>
+        </div>
+
+        <div class="library-cards-grid">
+          <!-- Liked Songs Quick Card -->
+          <div class="playlist-card liked-big-card" id="card-open-liked">
+            <div class="liked-heart-bg">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="card-info">
+              <h3>Lagu yang Disukai</h3>
+              <p id="library-liked-count">0 lagu</p>
+            </div>
+            <button class="card-play-btn" id="btn-play-liked-all">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+
+          <!-- User Created Playlists -->
+          <div id="library-playlists-grid" class="dynamic-playlists-grid"></div>
+        </div>
+
+        <div class="history-section" style="margin-top: 40px;">
+          <h3 class="shelf-title">Baru Saja Diputar</h3>
+          <div class="tracklist-container" id="history-tracklist">
+            <p class="empty-text">Belum ada riwayat lagu yang diputar.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: PLAYLIST DETAIL / LIKED VIEW -->
+      <section class="view-content" id="view-playlist-detail">
+        <div class="playlist-detail-header">
+          <div class="playlist-cover-large" id="detail-cover">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+          </div>
+          <div class="playlist-detail-info">
+            <span class="detail-badge" id="detail-type">PLAYLIST</span>
+            <h1 class="detail-title" id="detail-title">Lagu yang Disukai</h1>
+            <p class="detail-desc" id="detail-desc">Koleksi lagu favorit pilihan Anda</p>
+            <div class="detail-meta">
+              <span class="meta-creator">Aura</span> • 
+              <span class="meta-count" id="detail-track-count">0 lagu</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="playlist-detail-controls">
+          <button class="btn-play-primary btn-play-large" id="btn-detail-play-all">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button class="btn-circle btn-detail-action" id="btn-detail-shuffle" title="Putar Acak">
+            <svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+          </button>
+          <button class="btn-circle btn-detail-action" id="btn-detail-delete-playlist" title="Hapus Playlist" style="display:none;">
+            <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+          </button>
+        </div>
+
+        <div class="tracklist-container" id="detail-tracklist"></div>
+      </section>
+
+    </main>
+
+    <!-- Mobile Drawer Backdrop -->
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+
+    <!-- ==================== DESKTOP RIGHT DRAWER (NOW PLAYING SOUND CARD / LYRICS / QUEUE) ==================== -->
+    <aside class="right-drawer" id="right-drawer">
+      <div class="drawer-drag-handle"></div>
+      <div class="drawer-header">
+        <div class="drawer-tabs">
+          <button class="drawer-tab active" data-drawer="nowplaying">Sedang Diputar</button>
+          <button class="drawer-tab" data-drawer="lyrics">Lirik</button>
+          <button class="drawer-tab" data-drawer="queue">Antrean</button>
+        </div>
+        <button class="btn-close-drawer" id="btn-close-drawer" title="Tutup"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+      </div>
+
+      <!-- Drawer Content: Now Playing Sound Card -->
+      <div class="drawer-body active" id="drawer-nowplaying-content">
+        <div class="soundcard-view-scroll">
+          <div class="soundcard-art-card">
+            <div class="soundcard-art-wrap">
+              <img id="soundcard-art-img" src="icons/cover-placeholder.svg?v=4.3.0" alt="Cover" onerror="this.src='icons/cover-placeholder.svg?v=4.3.0'">
+              <div class="soundcard-engine-badge" id="soundcard-engine-badge">YouTube Music</div>
+            </div>
+            <div class="soundcard-meta-row">
+              <div class="soundcard-title-group">
+                <h3 class="soundcard-track-title" id="soundcard-track-title">Pilih Lagu</h3>
+                <p class="soundcard-track-artist" id="soundcard-track-artist">Aura Sound System</p>
+              </div>
+              <button class="btn-track-action soundcard-like-btn" id="soundcard-like-btn" title="Sukai">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Sound Wave Card (Visualizer Widget) -->
+          <div class="soundcard-box">
+            <div class="soundcard-box-header">
+              <div class="soundcard-live-tag">
+                <span class="soundcard-pulse-dot"></span>
+                <span id="soundcard-status-label">AUDIO AKTIF</span>
+              </div>
+              <span class="soundcard-codec-label">48 kHz • OPUS HD</span>
+            </div>
+            <div class="soundcard-canvas-container">
+              <canvas id="soundcard-vis-canvas" class="soundcard-vis-canvas"></canvas>
+            </div>
+            <div class="soundcard-metrics-row">
+              <div class="metric-col">
+                <span class="metric-title">BASS LEVEL</span>
+                <span class="metric-val" id="soundcard-bass-meter">HIGH</span>
+              </div>
+              <div class="metric-col">
+                <span class="metric-title">OUTPUT PEAK</span>
+                <span class="metric-val" id="soundcard-peak-meter">-6 dB</span>
+              </div>
+              <div class="metric-col">
+                <span class="metric-title">ENGINE</span>
+                <span class="metric-val" id="soundcard-engine-label">YT Music</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Sound Tuning & Quick Tools (Replaces "Tentang Audio") -->
+          <div class="soundcard-tuning-box">
+            <div class="tuning-header">
+              <span class="tuning-title">PENYETELAN SUARA (EQ)</span>
+              <span class="tuning-status" id="soundcard-eq-status">NATURAL</span>
+            </div>
+            <div class="tuning-pill-group">
+              <button class="eq-pill active" data-preset="flat">Natural</button>
+              <button class="eq-pill" data-preset="bass">Bass Boost</button>
+              <button class="eq-pill" data-preset="vocal">Vokal Jernih</button>
+              <button class="eq-pill" data-preset="treble">Treble Bright</button>
+            </div>
+            
+            <div class="quick-tools-row">
+              <button class="btn-quick-tool" id="btn-soundcard-share" title="Salin Info Lagu">
+                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+                <span>Bagikan</span>
+              </button>
+              <button class="btn-quick-tool" id="btn-soundcard-lyrics" title="Buka Lirik">
+                <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 3h5v2h-5V7zm-5 0h3v2H7V7zm10 8H7v-2h10v2zm0-4H7v-2h10v2z"/></svg>
+                <span>Lirik</span>
+              </button>
+              <button class="btn-quick-tool" id="btn-soundcard-vis-mode" title="Ganti Mode Visualizer">
+                <svg viewBox="0 0 24 24"><path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/></svg>
+                <span id="label-vis-mode">Gelombang</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Up Next Preview Card -->
+          <div class="soundcard-upnext-box">
+            <div class="upnext-box-header">
+              <span>BERIKUTNYA DI ANTREAN</span>
+            </div>
+            <div class="upnext-preview-card" id="soundcard-upnext-card">
+              <img id="soundcard-upnext-thumb" src="icons/cover-placeholder.svg?v=4.3.0" alt="Next" onerror="this.src='icons/cover-placeholder.svg?v=4.3.0'">
+              <div class="upnext-preview-info">
+                <div class="upnext-title" id="soundcard-upnext-title">Antrean Selesai</div>
+                <div class="upnext-artist" id="soundcard-upnext-artist">Pilih lagu untuk menambah</div>
+              </div>
+              <button class="upnext-play-btn" id="soundcard-upnext-play" title="Putar Sekarang">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer Content: Lyrics -->
+      <div class="drawer-body" id="drawer-lyrics-content">
+        <div class="lyrics-header-track">
+          <span class="lyrics-title" id="lyrics-track-title">-</span>
+          <span class="lyrics-artist" id="lyrics-track-artist">-</span>
+        </div>
+        <div class="lyrics-container" id="lyrics-container">
+          <p class="lyrics-placeholder">Lirik akan muncul di sini saat lagu diputar...</p>
+        </div>
+      </div>
+
+      <!-- Drawer Content: Queue -->
+      <div class="drawer-body" id="drawer-queue-content">
+        <div class="queue-section">
+          <h4>Sedang Diputar</h4>
+          <div id="queue-now-playing-item"></div>
+        </div>
+        <div class="queue-section" style="margin-top: 20px;">
+          <div class="queue-header-row">
+            <h4>Berikutnya di Antrean</h4>
+            <button class="queue-clear-btn" id="btn-clear-queue">Bersihkan</button>
+          </div>
+          <div id="queue-upcoming-list" class="queue-list">
+            <p class="empty-text">Antrean kosong.</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==================== DESKTOP BOTTOM PLAYER ==================== -->
+    <footer class="player-bar" id="player-bar">
+      <!-- Thin Ambient Realtime Visualizer on Player Bar Top Edge -->
+      <canvas class="ambient-visualizer-bar" id="ambient-visualizer-bar"></canvas>
+
+      <!-- Left: Song Info -->
+      <div class="player-left">
+        <div class="player-thumb-wrapper" id="player-thumb-wrapper">
+          <img id="player-thumb" src="icons/cover-placeholder.svg?v=4.2.0" alt="Album Cover" onerror="this.src='icons/cover-placeholder.svg?v=4.2.0'">
+        </div>
+        <div class="player-info-text">
+          <div class="player-title-row">
+            <div class="player-title" id="player-title">Pilih Lagu</div>
+            <div class="player-mini-vis" id="player-mini-vis" title="Audio Aktif">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+          </div>
+          <div class="player-artist" id="player-artist">Aura Music</div>
+        </div>
+        <button class="btn-like" id="player-like-btn" title="Sukai Lagu">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </button>
+      </div>
+
+      <!-- Center: Controls & Timeline -->
+      <div class="player-center">
+        <div class="playback-controls">
+          <button class="btn-player-ctrl" id="btn-shuffle" title="Acak Lagu (Shuffle)">
+            <svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+          </button>
+          <button class="btn-player-ctrl" id="btn-prev" title="Lagu Sebelumnya">
+            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+          <button class="btn-play-main" id="btn-play-pause" title="Putar/Jeda">
+            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+          <button class="btn-player-ctrl" id="btn-next" title="Lagu Berikutnya">
+            <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+          <button class="btn-player-ctrl" id="btn-repeat" title="Ulangi (Repeat)">
+            <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+            <span class="repeat-one-indicator" style="display:none;">1</span>
+          </button>
+        </div>
+
+        <div class="player-timeline">
+          <span class="time-current" id="time-current">0:00</span>
+          <div class="progress-bar-container" id="progress-bar-container">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="progress-bar-fill"></div>
+              <div class="progress-handle" id="progress-handle"></div>
+            </div>
+          </div>
+          <span class="time-duration" id="time-duration">0:00</span>
+        </div>
+      </div>
+
+      <!-- Right: Extras & Volume -->
+      <div class="player-right">
+        <button class="btn-player-extra active" id="btn-nowplaying-toggle" title="Sedang Diputar (Sound Card)">
+          <svg viewBox="0 0 24 24"><path d="M12 3v9.28a4.39 4.39 0 0 0-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
+        </button>
+        <button class="btn-player-extra" id="btn-lyrics-toggle" title="Lirik Lagu">
+          <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 3h5v2h-5V7zm-5 0h3v2H7V7zm10 8H7v-2h10v2zm0-4H7v-2h10v2z"/></svg>
+        </button>
+        <button class="btn-player-extra" id="btn-queue-toggle" title="Daftar Antrean">
+          <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+        </button>
+        <button class="btn-player-extra" id="btn-equalizer-modal" title="Equalizer & Efek Suara">
+          <svg viewBox="0 0 24 24"><path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/></svg>
+        </button>
+        <button class="btn-player-extra" id="btn-sleep-timer-modal" title="Pengatur Waktu Tidur (Sleep Timer)">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          <span class="sleep-active-dot" id="sleep-active-dot" style="display:none;"></span>
+        </button>
+
+        <div class="volume-container">
+          <button class="btn-player-extra" id="btn-mute" title="Bisu/Suara">
+            <svg class="vol-icon-high" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+            <svg class="vol-icon-muted" viewBox="0 0 24 24" style="display:none;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+          </button>
+          <div class="volume-bar-container" id="volume-bar-container">
+            <div class="volume-bar-fill" id="volume-bar-fill" style="width: 80%;"></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ==================== MOBILE MINI PLAYER ==================== -->
+    <div class="mobile-mini-player" id="mobile-mini-player">
+      <div class="mini-progress-bar" id="mini-progress-bar"></div>
+      <div class="mini-player-content">
+        <div class="mini-thumb-wrap">
+          <img id="mini-thumb" src="icons/cover-placeholder.svg?v=4.2.0" alt="Cover" onerror="this.src='icons/cover-placeholder.svg?v=4.2.0'">
+        </div>
+        <div class="mini-info" id="mini-info-tap">
+          <div class="mini-title" id="mini-title">Pilih Lagu</div>
+          <div class="mini-artist" id="mini-artist">Aura</div>
+        </div>
+        <div class="mini-actions">
+          <button class="mini-btn-like" id="mini-like-btn">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </button>
+          <button class="mini-btn-play" id="mini-play-pause">
+            <svg class="mini-icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="mini-icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+          <button class="mini-btn-next" id="mini-next">
+            <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MOBILE BOTTOM NAVIGATION ==================== -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+      <div class="mobile-nav-item active" data-view="home">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>Home</span>
+      </div>
+      <div class="mobile-nav-item" data-view="search">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <span>Cari</span>
+      </div>
+      <div class="mobile-nav-item" data-view="explore">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        <span>Trending</span>
+      </div>
+      <div class="mobile-nav-item" data-view="library">
+        <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+        <span>Koleksi</span>
+      </div>
+    </nav>
+
+    <!-- ==================== MOBILE FULLSCREEN NOW PLAYING MODAL ==================== -->
+    <div class="fullscreen-player-modal" id="fullscreen-player-modal">
+      <div class="fullscreen-ambient-bg" id="fullscreen-ambient-bg"></div>
+
+      <div class="fullscreen-topbar">
+        <button class="btn-fs-dismiss" id="btn-fs-dismiss" title="Tutup">
+          <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </button>
+        <div class="fs-header-title">
+          <span class="fs-subtitle">MEMUTAR LAGU</span>
+          <span class="fs-source-badge" id="fs-engine-badge">YT Music</span>
+        </div>
+        <button class="btn-fs-menu" id="btn-fs-menu">
+          <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        </button>
+      </div>
+
+      <!-- Large Cover Art -->
+      <div class="fullscreen-artwork-container">
+        <div class="fs-artwork-glow"></div>
+        <img id="fs-artwork-img" class="fs-artwork-img" src="icons/cover-placeholder.svg?v=4.2.0" alt="Album Cover" onerror="this.src='icons/cover-placeholder.svg?v=4.2.0'">
+      </div>
+
+      <!-- Track Information -->
+      <div class="fullscreen-track-info">
+        <div class="fs-text-wrapper">
+          <h2 class="fs-title" id="fs-title">Pilih Lagu</h2>
+          <p class="fs-artist" id="fs-artist">Aura</p>
+        </div>
+        <button class="btn-fs-like" id="fs-like-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </button>
+      </div>
+
+      <!-- Scrubber Timeline -->
+      <div class="fullscreen-timeline">
+        <div class="fs-progress-container" id="fs-progress-container">
+          <div class="fs-progress-bg">
+            <div class="fs-progress-fill" id="fs-progress-fill"></div>
+            <div class="fs-progress-thumb" id="fs-progress-thumb"></div>
+          </div>
+        </div>
+        <div class="fs-time-row">
+          <span id="fs-time-current">0:00</span>
+          <span id="fs-time-duration">0:00</span>
+        </div>
+      </div>
+
+      <!-- Playback Controls -->
+      <div class="fullscreen-controls">
+        <button class="fs-ctrl-btn" id="fs-shuffle-btn">
+          <svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+        </button>
+        <button class="fs-ctrl-btn" id="fs-prev-btn">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button class="fs-play-btn" id="fs-play-pause">
+          <svg class="fs-icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="fs-icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <button class="fs-ctrl-btn" id="fs-next-btn">
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+        <button class="fs-ctrl-btn" id="fs-repeat-btn">
+          <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+        </button>
+      </div>
+
+      <!-- Mobile Live Sound Card Widget -->
+      <div class="mobile-soundcard-widget">
+        <div class="soundcard-box-header">
+          <div class="soundcard-live-tag">
+            <span class="soundcard-pulse-dot"></span>
+            <span>CARD SOUND AKTIF</span>
+          </div>
+          <span class="soundcard-codec-label" id="mobile-soundcard-codec">48 kHz • OPUS HD</span>
+        </div>
+        <div class="soundcard-canvas-container">
+          <canvas id="mobile-soundcard-vis" class="soundcard-vis-canvas"></canvas>
+        </div>
+        <div class="mobile-tuning-pills">
+          <button class="eq-pill active" data-preset="flat">Natural</button>
+          <button class="eq-pill" data-preset="bass">Bass Boost</button>
+          <button class="eq-pill" data-preset="vocal">Vokal</button>
+          <button class="eq-pill" data-preset="treble">Treble</button>
+        </div>
+      </div>
+
+      <!-- Quick Action Toolbar at Bottom -->
+      <div class="fullscreen-bottom-toolbar">
+        <button class="fs-tool-btn" id="fs-btn-soundcard">
+          <svg viewBox="0 0 24 24"><path d="M12 3v9.28a4.39 4.39 0 0 0-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
+          <span>Sound Card</span>
+        </button>
+        <button class="fs-tool-btn" id="fs-btn-lyrics">
+          <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 3h5v2h-5V7zm-5 0h3v2H7V7zm10 8H7v-2h10v2zm0-4H7v-2h10v2z"/></svg>
+          <span>Lirik</span>
+        </button>
+        <button class="fs-tool-btn" id="fs-btn-queue">
+          <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+          <span>Antrean</span>
+        </button>
+        <button class="fs-tool-btn" id="fs-btn-sleep">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          <span>Tidur</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== AUDIO VISUALIZER OVERLAY (Canvas) ==================== -->
+    <div class="visualizer-overlay" id="visualizer-overlay" style="display:none;">
+      <div class="visualizer-header">
+        <span>SPECTRUM VISUALIZER (60 FPS)</span>
+        <button class="btn-close-vis" id="btn-close-visualizer" title="Tutup"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+      </div>
+      <canvas id="visualizer-canvas"></canvas>
+    </div>
+
+    <!-- ==================== MODALS ==================== -->
+    
+    <!-- Mobile Connect / QR Code Modal -->
+    <div class="modal-backdrop" id="modal-qr">
+      <div class="modal-box modal-qr-box">
+        <button class="modal-close-btn" id="btn-close-qr-modal" title="Tutup"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+        <div class="modal-header">
+          <svg class="modal-icon" viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+          <h3>Buka Pemutar Musik di HP</h3>
+          <p>Scan QR code ini pakai kamera HP kamu (pastikan terhubung ke Wi-Fi yang sama):</p>
+        </div>
+        <div class="qr-image-wrapper">
+          <img id="qr-code-img" src="" alt="QR Code Link">
+        </div>
+        <div class="qr-url-box">
+          <span id="qr-mobile-url">http://...</span>
+          <button class="btn-copy-url" id="btn-copy-mobile-url">Salin</button>
+        </div>
+        <p class="qr-tip"><b>Panduan Aplikasi HP:</b> Di Chrome Android atau Safari iOS, buka menu lalu klik <b>"Tambahkan ke Layar Utama" (Add to Home Screen)</b> agar berjalan seperti aplikasi native berlayar penuh tanpa bilah peramban.</p>
+      </div>
+    </div>
+
+    <!-- Create Playlist Modal -->
+    <div class="modal-backdrop" id="modal-create-playlist">
+      <div class="modal-box">
+        <button class="modal-close-btn" id="btn-close-playlist-modal" title="Tutup"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+        <h3>Buat Playlist Baru</h3>
+        <p>Beri nama playlist koleksi lagu favoritmu:</p>
+        <input type="text" id="input-new-playlist-name" placeholder="Misal: Lagu Santai Malam, Kerja Fokus..." maxlength="50">
+        <div class="modal-buttons">
+          <button class="btn-modal-cancel" id="btn-cancel-create-playlist">Batal</button>
+          <button class="btn-modal-confirm" id="btn-confirm-create-playlist">Simpan Playlist</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add To Playlist Selector Modal -->
+    <div class="modal-backdrop" id="modal-add-to-playlist">
+      <div class="modal-box">
+        <button class="modal-close-btn" id="btn-close-add-modal" title="Tutup"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+        <h3>Tambahkan ke Playlist</h3>
+        <p>Pilih playlist tujuan untuk lagu ini:</p>
+        <div class="modal-playlist-options" id="modal-playlist-options"></div>
+      </div>
+    </div>
+
+    <!-- Equalizer Modal -->
+    <div class="modal-backdrop" id="modal-equalizer">
+      <div class="modal-box">
+        <button class="modal-close-btn" id="btn-close-eq-modal" title="Tutup"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+        <div class="modal-header">
+          <svg class="modal-icon" viewBox="0 0 24 24"><path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/></svg>
+          <h3>Equalizer Audio</h3>
+          <p>Sesuaikan profil suara sesuai selera dan headphone Anda:</p>
+        </div>
+        <div class="eq-presets-grid">
+          <button class="eq-preset-btn active" data-preset="flat">Normal / Flat</button>
+          <button class="eq-preset-btn" data-preset="bass">Bass Boost</button>
+          <button class="eq-preset-btn" data-preset="vocal">Vocal Clarity</button>
+          <button class="eq-preset-btn" data-preset="rock">Rock Punch</button>
+          <button class="eq-preset-btn" data-preset="electronic">Electronic EDM</button>
+          <button class="eq-preset-btn" data-preset="acoustic">Acoustic Warm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sleep Timer Modal -->
+    <div class="modal-backdrop" id="modal-sleep-timer">
+      <div class="modal-box">
+        <button class="modal-close-btn" id="btn-close-sleep-modal" title="Tutup"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+        <div class="modal-header">
+          <svg class="modal-icon" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+          <h3>Pengatur Waktu Tidur</h3>
+          <p>Musik akan otomatis berhenti secara perlahan (fade-out):</p>
+        </div>
+        <div class="sleep-options-grid">
+          <button class="sleep-opt-btn" data-minutes="0">Matikan Timer</button>
+          <button class="sleep-opt-btn" data-minutes="15">15 Menit</button>
+          <button class="sleep-opt-btn" data-minutes="30">30 Menit</button>
+          <button class="sleep-opt-btn" data-minutes="45">45 Menit</button>
+          <button class="sleep-opt-btn" data-minutes="60">1 Jam</button>
+          <button class="sleep-opt-btn" data-minutes="end-of-track">Akhir Lagu Ini</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Banner -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Mobile PWA Floating Banner -->
+    <div class="mobile-pwa-banner" id="mobile-pwa-banner" style="display: none;">
+      <div class="pwa-banner-content">
+        <img src="icons/icon-192.png?v=4.6.0" alt="Aura Icon" class="pwa-banner-icon">
+        <div class="pwa-banner-info">
+          <div class="pwa-banner-title">Pasang Aplikasi Aura</div>
+          <div class="pwa-banner-desc">Layar kunci, tanpa iklan & selalu siap putar</div>
+        </div>
+      </div>
+      <div class="pwa-banner-actions">
+        <button class="btn-pwa-install-action" id="btn-banner-install">Pasang</button>
+        <button class="btn-pwa-dismiss" id="btn-banner-dismiss" aria-label="Tutup Banner">
+          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- iOS Add to Home Screen Instructions Modal -->
+    <div class="modal-overlay" id="ios-install-modal" style="display: none;">
+      <div class="ios-install-card">
+        <div class="ios-modal-header">
+          <img src="icons/icon-192.png?v=4.6.0" alt="Aura Logo" class="ios-app-icon">
+          <div class="ios-modal-meta">
+            <h3>Pasang Aura di iPhone / iPad</h3>
+            <p>Jadikan aplikasi di layar utama tanpa batas</p>
+          </div>
+          <button class="ios-modal-close" id="btn-close-ios-modal">&times;</button>
+        </div>
+        <div class="ios-steps">
+          <div class="ios-step">
+            <span class="step-num">1</span>
+            <div class="step-text">Ketuk tombol <strong>Bagikan (Share)</strong> <svg class="inline-ios-icon" viewBox="0 0 24 24"><path d="M16 5l-1.42 1.42-1.59-1.59V16h-1.98V4.83L9.42 6.42 8 5l4-4 4 4zm4 5v11c0 1.1-.9 2-2 2H6c-1.11 0-2-.9-2-2V10c0-1.11.89-2 2-2h3v2H6v11h12V10h-3V8h3c1.1 0 2 .89 2 2z"/></svg> di menu bawah Safari.</div>
+          </div>
+          <div class="ios-step">
+            <span class="step-num">2</span>
+            <div class="step-text">Gulir menu ke bawah lalu pilih <strong>"Tambahkan ke Layar Utama" (Add to Home Screen)</strong>.</div>
+          </div>
+          <div class="ios-step">
+            <span class="step-num">3</span>
+            <div class="step-text">Ketuk <strong>"Tambah"</strong> di pojok kanan atas. Buka Aura dari homescreen HP Anda!</div>
+          </div>
+        </div>
+        <button class="btn-primary ios-confirm-btn" id="btn-ios-done">Saya Mengerti</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Audio Element (Hidden Core Engine - Configured for Mobile Background Audio) -->
+  <audio id="audio-engine" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline x-webkit-airplay="allow"></audio>
+
+  <!-- App Scripts (Cache-Busted v4.6.0) -->
+  <script src="js/pwa.js?v=4.6.0"></script>
+  <script src="js/ui.js?v=4.6.0"></script>
+  <script src="js/library.js?v=4.6.0"></script>
+  <script src="js/lyrics.js?v=4.6.0"></script>
+  <script src="js/player.js?v=4.6.0"></script>
+  <script src="js/search.js?v=4.6.0"></script>
+  <script src="js/app.js?v=4.6.0"></script>
+</body>
+</html>
