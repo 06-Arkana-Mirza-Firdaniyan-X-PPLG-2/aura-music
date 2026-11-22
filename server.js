@@ -49,13 +49,24 @@ function getLocalNetworkIp() {
 }
 
 // ----------------------------------------------------
-// 1. STREAM ENDPOINT (Zero Ads, Range Request Support)
+// 1. STREAM ENDPOINT
+// On Vercel/serverless → 302 redirect to YouTube CDN (completes in <100ms, no timeout)
+// On local → proxy stream through server for CORS compatibility
 // ----------------------------------------------------
 app.get('/api/stream', async (req, res) => {
   const videoId = req.query.id;
   if (!videoId || typeof videoId !== 'string' || videoId.length < 5) {
     return res.status(400).json({ error: 'Missing or invalid video ID' });
   }
+
+  // CORS headers for all responses
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+
+  // On Vercel (or any cloud serverless), use redirect mode to bypass timeout limits.
+  // The browser/PWA fetches audio directly from YouTube CDN.
+  const isServerless = !!(process.env.VERCEL || process.env.VERCEL_URL ||
+                          process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.FUNCTION_TARGET);
 
   try {
     let cached = streamUrlCache.get(videoId);
@@ -64,17 +75,17 @@ app.get('/api/stream', async (req, res) => {
     if (!cached || cached.expiresAt < now) {
       const info = await ytdlClient.getInfo(videoId);
       
-      // Prefer standard m4a (AAC 128kbps) for universal mobile & desktop support
+      // Prefer standard m4a (AAC 128kbps) — universally supported on all devices
       let format = info.formats.find(f => f.itag === 140 && f.url);
       
-      // Fallback to best available audio-only stream (e.g. webm opus 160/130kbps)
+      // Fallback: best audio-only stream (webm opus 160/130kbps)
       if (!format) {
         const audioOnly = info.formats.filter(f => f.hasAudio && !f.hasVideo && f.url);
         audioOnly.sort((a, b) => (b.audioBitrate || 0) - (a.audioBitrate || 0));
         format = audioOnly[0];
       }
 
-      // Final fallback to any format with audio
+      // Final fallback: any format with audio
       if (!format) {
         format = info.formats.find(f => f.hasAudio && f.url);
       }
@@ -92,6 +103,15 @@ app.get('/api/stream', async (req, res) => {
       streamUrlCache.set(videoId, cached);
     }
 
+    // ── SERVERLESS MODE: 302 Redirect ──────────────────────────────────────
+    // Vercel function completes instantly (<100ms). The browser connects
+    // directly to Google/YouTube CDN (rr*.googlevideo.com) to stream audio.
+    if (isServerless) {
+      res.setHeader('Cache-Control', 'private, no-store');
+      return res.redirect(302, cached.url);
+    }
+
+    // ── LOCAL / VPS MODE: Proxy stream ─────────────────────────────────────
     const rangeHeader = req.headers.range;
     const fetchHeaders = {
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
@@ -100,12 +120,9 @@ app.get('/api/stream', async (req, res) => {
       fetchHeaders['Range'] = rangeHeader;
     }
 
-    const streamResponse = await fetch(cached.url, {
-      headers: fetchHeaders
-    });
+    const streamResponse = await fetch(cached.url, { headers: fetchHeaders });
 
     if (!streamResponse.ok && streamResponse.status !== 206) {
-      // If cached URL expired on Google's CDN, clear cache and retry once
       streamUrlCache.delete(videoId);
       return res.status(502).json({ error: 'Upstream stream request failed. Please retry.' });
     }
@@ -125,11 +142,8 @@ app.get('/api/stream', async (req, res) => {
 
     res.writeHead(streamResponse.status, responseHeaders);
 
-    // Stream body chunks smoothly to client with backpressure
     const reader = streamResponse.body.getReader();
-    req.on('close', () => {
-      reader.cancel().catch(() => {});
-    });
+    req.on('close', () => { reader.cancel().catch(() => {}); });
 
     while (true) {
       const { done, value } = await reader.read();
@@ -460,12 +474,16 @@ function formatViews(num) {
 }
 
 // Start Server on all interfaces (0.0.0.0) so phone and PC can connect
-app.listen(PORT, '0.0.0.0', () => {
-  const localIp = getLocalNetworkIp();
-  console.log(`\n======================================================`);
-  console.log(`  AURA - MODERN AD-FREE MUSIC (MOBILE & PC)           `);
-  console.log(`======================================================`);
-  console.log(`  Desktop (PC):  http://localhost:${PORT}`);
-  console.log(`  Mobile (HP):   http://${localIp}:${PORT}`);
-  console.log(`======================================================\n`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, '0.0.0.0', () => {
+    const localIp = getLocalNetworkIp();
+    console.log(`\n======================================================`);
+    console.log(`  AURA - MODERN AD-FREE MUSIC (MOBILE & PC)           `);
+    console.log(`======================================================`);
+    console.log(`  Desktop (PC):  http://localhost:${PORT}`);
+    console.log(`  Mobile (HP):   http://${localIp}:${PORT}`);
+    console.log(`======================================================\n`);
+  });
+}
+
+export default app;
